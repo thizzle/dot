@@ -20,6 +20,8 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 let ruby_operators = 1
 
+let g:neocomplete#enable_at_startup = 1
+
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -82,6 +84,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-dispatch'
+Plugin 'Shougo/neocomplete.vim'
 
 Plugin 'pangloss/vim-javascript'
 
