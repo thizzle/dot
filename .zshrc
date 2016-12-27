@@ -17,3 +17,5 @@ which rbenv > /dev/null
 if [ $? -eq 0 ]; then
   eval "$(rbenv init -)"
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
