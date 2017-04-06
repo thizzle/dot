@@ -1,27 +1,46 @@
-set autoindent
-set autoread
-set backspace=2
-set expandtab
-set laststatus=2
-set mouse=a
-set nocompatible              " be iMproved, required
-set number
+" General Editor Configuration {{{
+set autoindent    " detect indentation automatically on new lines
+set backspace=2   " allow backspacing over autoindent, line breaks, etc.
+set expandtab     " use spaces instead of tabs in Insert mode
+set laststatus=2  " display status line always
+set mouse=a       " enable mouse support in all modes
+set nocompatible  " be iMproved, required
+set number        " show line numbers
+set wildmenu      " visual auto-complete
+set showmatch     " visually match parenthetical characters
 set tabstop=2 shiftwidth=2 softtabstop=2
+set foldenable
+set foldlevelstart=10 " open most folds by default
+set foldnestmax=10    " 10 nested fold max
+set foldmethod=syntax " syntax highlighting determines fold levels
+
+set grepprg=rg\ --vimgrep " use ripgrep in place of grep
+
+set background=dark
+colorscheme slate
 
 syntax on
-colorscheme zellner
+
 filetype on
 filetype indent on
 filetype plugin on
+" }}}
 
+" Fuzzy file-locating with CtrlP {{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+" }}}
 
-let ruby_operators = 1
+" Autocompletion with Neocomplete {{{
+set completeopt-=preview
 
+let g:acp_enableAtStartup = 0           " disable AutoComplPop
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" }}}
 
+" Tagbar {{{
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -49,7 +68,17 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
     \ }
+" }}}
 
+" Key Mappings - General {{{
+nmap <F8> :TagbarToggle<CR>
+
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+" }}}
+
+" Key Mappings - File-type specific {{{
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
@@ -59,58 +88,47 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
+au Filetype ruby nmap <Leader>t :call RunCurrentSpecFile()<CR>
+au Filetype ruby nmap <Leader>s :call RunNearestSpec()<CR>
+" }}}
 
+" Plugins {{{
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-Plugin 'tpope/vim-fugitive'
-Plugin 'L9'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-Plugin 'mileszs/ack.vim'
-Plugin 'airblade/vim-gitgutter'
+" general
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-dispatch'
-Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
 
+" git
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" javascript
 Plugin 'pangloss/vim-javascript'
+Plugin 'flowtype/vim-flow'
 
+" ruby
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-rails'
 
+" go
 Plugin 'fatih/vim-go'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
-nmap <F8> :TagbarToggle<CR>
+call vundle#end()
+" }}}
+
+let g:rspec_command = "compiler rspec | set makeprg=zeus | Make rspec {spec}"
 
 set rtp+=/usr/local/Cellar/powerline/2.3/lib/python2.7/site-packages/powerline/bindings/vim
 
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" vim:foldmethod=marker:foldlevel=0
