@@ -107,10 +107,12 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'vektorlab/slackcat', {'rtp': 'contrib/vim-slackcat' }
 
 " git
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'jreybert/vimagit'
 
 " javascript
 Plugin 'pangloss/vim-javascript'
