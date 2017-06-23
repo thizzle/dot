@@ -32,12 +32,11 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = 'ag %s -l --no-color -g ""'
 " }}}
 
-" Autocompletion with Neocomplete {{{
-set completeopt-=preview
+" Autocompletion {{{
+let g:deoplete#enable_at_startup = 1
 
-let g:acp_enableAtStartup = 0           " disable AutoComplPop
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
 " }}}
 
 " Tagbar {{{
@@ -72,10 +71,6 @@ let g:tagbar_type_go = {
 
 " Key Mappings - General {{{
 nmap <F8> :TagbarToggle<CR>
-
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
 " }}}
 
 " Key Mappings - File-type specific {{{
@@ -104,10 +99,13 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-dispatch'
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
 Plugin 'vektorlab/slackcat', {'rtp': 'contrib/vim-slackcat' }
+Plugin 'itchyny/lightline.vim'
+
+" autocompletion
+Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " git
 Plugin 'tpope/vim-fugitive'
@@ -130,7 +128,5 @@ call vundle#end()
 " }}}
 
 let g:rspec_command = "compiler rspec | set makeprg=zeus | Make rspec {spec}"
-
-set rtp+=/usr/local/Cellar/powerline/2.3/lib/python2.7/site-packages/powerline/bindings/vim
 
 " vim:foldmethod=marker:foldlevel=0
