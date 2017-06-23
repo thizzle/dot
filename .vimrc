@@ -14,7 +14,7 @@ set foldlevelstart=10 " open most folds by default
 set foldnestmax=10    " 10 nested fold max
 set foldmethod=syntax " syntax highlighting determines fold levels
 
-set grepprg=rg\ --vimgrep " use ripgrep in place of grep
+set grepprg=ag\ --vimgrep " use ripgrep in place of grep
 
 set background=dark
 colorscheme slate
@@ -29,7 +29,7 @@ filetype plugin on
 " Fuzzy file-locating with CtrlP {{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+let g:ctrlp_user_command = 'ag %s -l --no-color -g ""'
 " }}}
 
 " Autocompletion with Neocomplete {{{
